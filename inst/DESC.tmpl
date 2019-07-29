@@ -1,0 +1,13 @@
+# DESCRIPTION file of '{{PKG_NAME}}' converted to pkgr.yml
+Version: 1
+Threads: 4
+{{PKGS}}
+Repos:
+- gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
+- gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
+- mrg_val: https://metrumresearchgroup.github.io/r_validated
+- CRAN: 'https://cran.rstudio.com'
+Library: '{{LIBPATH}}'
+Cache: pkgcache
+Logging:
+  all: pkgr-log.log
