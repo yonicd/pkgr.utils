@@ -37,5 +37,5 @@ if(interactive()){
 }
 \seealso{
 \code{\link[yaml]{as.yaml}}
- \code{\link[whisker]{whisker.render}}
+\code{\link[whisker]{whisker.render}}
 }

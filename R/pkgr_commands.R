@@ -6,52 +6,136 @@
 #' @return character
 #' @details
 #'
+#'
+#' \if{html}{
+#' \out{
+#' <br>
+#' <details>
+#' <summary> <span title='Click to Expand'> pkgr add [package name1] [package name2] ... [options] [flags] </span> </summary>
+#' }
+#' }
+#'
 #' add package/s to the configuration file and optionally install
 #'
-#' pkgr add [package name1] [package name2] ... [options] [flags]
+#' \tabular{ll}{
+#' \strong{Flag} \tab \strong{Description}\cr
+#' install   \tab install package/s after adding
+#' }
 #'
-#' command specific flag
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
 #'
-#' \tabular{llll}{
-#' \strong{Flag} \tab \strong{Description} \tab \strong{Default}\cr
-#' install   \tab install package/s after adding \tab
+#' \if{html}{
+#' \out{
+#' <br>
+#' <details>
+#' <summary> <span title='Click to Expand'> pkgr remove [package name1] [package name2] ... [options] [flags] </span> </summary>
+#' }
 #' }
 #'
 #' remove package/s from the configuration file
 #'
-#' pkgr remove [package name1] [package name2] ... [options] [flags]
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
+#'
+#' \if{html}{
+#' \out{
+#' <br>
+#' <details>
+#' <summary> <span title='Click to Expand'> pkgr install [options] [flags] </span> </summary>
+#' }
+#' }
 #'
 #' install a package
 #'
-#' pkgr install [options] [flags]
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
+#'
+#' \if{html}{
+#' \out{
+#' <br>
+#' <details>
+#' <summary> <span title='Click to Expand'> pkgr plan [options] [flags] </span> </summary>
+#' }
+#' }
 #'
 #' see the plan for an install
 #'
-#' pkgr plan [options] [flags]
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
 #'
-#' global options:
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
+#'
+#' \if{html}{
+#' \out{
+#' <br>
+#' <details>
+#' <summary> <span title='Click to Expand'> Global options </span> </summary>
+#' }
+#' }
 #'
 #' \tabular{llll}{
 #' \strong{Option} \tab \strong{Class} \tab \strong{Description} \tab \strong{Default}\cr
 #' config   \tab character \tab config file path                       \tab pkgr.yml\cr
-#' loglevel \tab character \tab evel for logging                       \tab         \cr
+#' loglevel \tab character \tab level for logging                       \tab         \cr
 #' thread   \tab integer   \tab number of threads to execute with      \tab
 #'}
 #'
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
 #'
-#' global flags:
+#' \if{html}{
+#' \out{
+#' <br>
+#' <details>
+#' <summary> <span title='Click to Expand'> Global flags </span> </summary>
+#' }
+#' }
 #'
-#' \tabular{llll}{
-#' \strong{Flag} \tab \strong{Description} \tab \strong{Default}\cr
-#' debug       \tab use debug mode                         \tab         \cr
-#' preview     \tab preview action, but do not run command \tab         \cr
-#' update      \tab update packages along with install     \tab
+#' \tabular{ll}{
+#' \strong{Flag} \tab \strong{Description}\cr
+#' debug       \tab use debug mode\cr
+#' preview     \tab preview action, but do not run command \cr
+#' update      \tab update packages along with install
 #'}
+#'
+#' \if{html}{
+#' \out{
+#' </details>
+#' }
+#' }
+#'
 #' @examples
 #'
 #' pkgr.add(c('dplyr','ggplot2'))
 #'
 #' pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml')
+#'
+#' pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml',flags='install')
 #'
 #' pkgr.remove(c('dplyr','ggplot2'))
 #'

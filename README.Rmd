@@ -1,0 +1,66 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# pkgr.utils
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of pkgr.utils is to ...
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r example}
+library(pkgr.utils)
+## basic example code
+```
+
+```{r}
+pkgr.add(c('dplyr','ggplot2'))
+
+pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml')
+
+pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml',flags='install')
+
+pkgr.remove(c('dplyr','ggplot2'))
+
+pkgr.install()
+
+pkgr.install(config='pkgr.yml',library=.libPaths()[1])
+
+pkgr.plan(config='pkgr.yml',library=.libPaths()[1])
+```
+
+```{r}
+pkgr.utils::desc2pkgr()
+```
+
+```{r}
+
+
+```
+
+```{r}
+pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'))
+```
+
+```{r}
+
+tf <- tempfile(fileext = '.yml')
+pkgr.utils::desc2pkgr(out = tf)
+
+pkgr.utils::pkgr.diff(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
+```

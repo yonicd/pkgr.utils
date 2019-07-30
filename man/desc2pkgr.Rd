@@ -13,7 +13,7 @@ desc2pkgr(desc_path = ".", src_path = "pkg",
 
 \item{src_path}{character, path to store source files, Default: 'pkg'}
 
-\item{lib_path}{characer, path to install libraries, Default: .libPaths()[1]}
+\item{lib_path}{characer, path to install libraries, Default: .libPaths()\link{1}}
 
 \item{pkgr_tmpl}{character, path to pkgr template,
 Default: system.file("DESC.tmpl", package = "pkgr.utils")}
