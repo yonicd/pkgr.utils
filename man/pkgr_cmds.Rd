@@ -2,34 +2,76 @@
 % Please edit documentation in R/pkgr_commands.R
 \name{pkgr.add}
 \alias{pkgr.add}
+\alias{pkgr.remove}
 \alias{pkgr.install}
 \alias{pkgr.plan}
-\title{FUNCTION_TITLE}
+\title{pkgr commands}
 \usage{
 pkgr.add(pkgs, ...)
+
+pkgr.remove(pkgs, ...)
 
 pkgr.install(...)
 
 pkgr.plan(...)
 }
 \arguments{
-\item{pkgs}{PARAM_DESCRIPTION}
+\item{pkgs}{character, names of packages passed in add/remove}
 
-\item{\dots}{PARAM_DESCRIPTION}
-}
-\value{
-OUTPUT_DESCRIPTION
+\item{\dots}{flags that are passed into the command calls}
 }
 \description{
-FUNCTION_DESCRIPTION
+Commands that can be called in pkgr command line
 }
 \details{
-DETAILS
+add package/s to the configuration file and optionally install
+
+pkgr add [package name1] [package name2] ... [flags]
+
+command specific flag
+
+\tabular{llll}{
+\strong{Flag} \tab \strong{Class} \tab \strong{Description} \tab \strong{Default}\cr
+install   \tab logical \tab install package/s after adding \tab
+}
+
+remove package/s from the configuration file
+
+pkgr remove [package name1] [package name2] ... [flags]
+
+install a package
+
+pkgr install [flags]
+
+see the plan for an install
+
+pkgr plan [flags]
+
+global flags:
+
+\tabular{llll}{
+\strong{Flag} \tab \strong{Class} \tab \strong{Description} \tab \strong{Default}\cr
+config   \tab character \tab config file path                       \tab pkgr.yml\cr
+debug    \tab logical   \tab use debug mode                         \tab         \cr
+library  \tab character \tab path to install library                \tab         \cr
+loglevel \tab character \tab evel for logging                       \tab         \cr
+preview  \tab logical   \tab preview action, but do not run command \tab         \cr
+thread   \tab integer   \tab number of threads to execute with      \tab         \cr
+update   \tab logical   \tab update packages along with install     \tab
+}
 }
 \examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
+
+pkgr.add(c('dplyr','ggplot2'))
+
+pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml')
+
+pkgr.remove(c('dplyr','ggplot2'))
+
+pkgr.install()
+
+pkgr.install(config='pkgr.yml',library=.libPaths()[1])
+
+pkgr.plan(config='pkgr.yml',library=.libPaths()[1])
+
 }

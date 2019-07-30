@@ -2,29 +2,34 @@
 % Please edit documentation in R/utils.R
 \name{pkgr.diff}
 \alias{pkgr.diff}
-\title{FUNCTION_TITLE}
+\title{Compare packages listed in pkgSetup and pkgr.yml}
 \usage{
 pkgr.diff(pkgsetup = "pkgSetup.R", pkgr = "pkgr.yml")
 }
 \arguments{
-\item{pkgsetup}{PARAM_DESCRIPTION, Default: 'pkgSetup.R'}
+\item{pkgsetup}{character, path to pkgSetup.R , Default: 'pkgSetup.R'}
 
-\item{pkgr}{PARAM_DESCRIPTION, Default: 'pkgr.yml'}
+\item{pkgr}{character, path to pkgr.yml, Default: 'pkgr.yml'}
 }
 \value{
-OUTPUT_DESCRIPTION
+character
 }
 \description{
-FUNCTION_DESCRIPTION
+Compare packages listed in pkgSetup and pkgr.yml and return the
+setdiff.
 }
 \details{
-DETAILS
+The setdiff returns what packages are in pkgSetup that are missing
+from pkgr.yml Package field.
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+
+pkgr.diff()
+
+pkgr.diff()\%>\%
+  pkgr.add()
+
 }
 }
 \seealso{

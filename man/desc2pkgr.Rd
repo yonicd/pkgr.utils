@@ -2,43 +2,38 @@
 % Please edit documentation in R/desc_fns.R
 \name{desc2pkgr}
 \alias{desc2pkgr}
-\title{FUNCTION_TITLE}
+\title{Convert a Description file to pkgr.yml}
 \usage{
 desc2pkgr(desc_path = ".", src_path = "pkg",
   lib_path = .libPaths()[1], pkgr_tmpl = system.file("DESC.tmpl",
   package = "pkgr.utils"), out = "")
 }
 \arguments{
-\item{desc_path}{PARAM_DESCRIPTION, Default: '.'}
+\item{desc_path}{character, path to DESCRIPTION file, Default: '.'}
 
-\item{src_path}{PARAM_DESCRIPTION, Default: 'pkg'}
+\item{src_path}{character, path to store source files, Default: 'pkg'}
 
-\item{lib_path}{PARAM_DESCRIPTION, Default: .libPaths()[1]}
+\item{lib_path}{characer, path to install libraries, Default: .libPaths()[1]}
 
-\item{pkgr_tmpl}{PARAM_DESCRIPTION, Default: system.file("DESC.tmpl", package = "pkgr.utils")}
+\item{pkgr_tmpl}{character, path to pkgr template,
+Default: system.file("DESC.tmpl", package = "pkgr.utils")}
 
-\item{out}{PARAM_DESCRIPTION, Default: ''}
+\item{out}{characer, path to save pkgr template, if '' then it is written
+to console, Default: ''}
 }
 \value{
-OUTPUT_DESCRIPTION
+populated pkgr template
 }
 \description{
-FUNCTION_DESCRIPTION
+Reads in a DESCRIPTION file and populates a pkgr.yml template
+with the non base packages listed as Depends, Imports, Suggests
 }
 \details{
-DETAILS
+The path to the DESCRIPTION file can be a web URI, in this case it will
+be downloaded and read.
 }
 \examples{
 \dontrun{
-if(interactive()){
- #EXAMPLE1
- }
+ desc2pkgr()
 }
-}
-\seealso{
-\code{\link[httr]{GET}}
- \code{\link[utils]{download.file}}
- \code{\link[yaml]{as.yaml}}
- \code{\link[whisker]{whisker.render}}
- \code{\link[desc]{desc_get_field}}
 }

@@ -1,24 +1,20 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param desc_path PARAM_DESCRIPTION, Default: '.'
-#' @param src_path PARAM_DESCRIPTION, Default: 'pkg'
-#' @param lib_path PARAM_DESCRIPTION, Default: .libPaths()[1]
-#' @param pkgr_tmpl PARAM_DESCRIPTION, Default: system.file("DESC.tmpl", package = "pkgr.utils")
-#' @param out PARAM_DESCRIPTION, Default: ''
-#' @return OUTPUT_DESCRIPTION
-#' @details DETAILS
+#' @title Convert a Description file to pkgr.yml
+#' @description Reads in a DESCRIPTION file and populates a pkgr.yml template
+#' with the non base packages listed as Depends, Imports, Suggests
+#' @param desc_path character, path to DESCRIPTION file, Default: '.'
+#' @param src_path character, path to store source files, Default: 'pkg'
+#' @param lib_path characer, path to install libraries, Default: .libPaths()[1]
+#' @param pkgr_tmpl character, path to pkgr template,
+#' Default: system.file("DESC.tmpl", package = "pkgr.utils")
+#' @param out characer, path to save pkgr template, if '' then it is written
+#' to console, Default: ''
+#' @return populated pkgr template
+#' @details The path to the DESCRIPTION file can be a web URI, in this case it will
+#' be downloaded and read.
 #' @examples
 #' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
+#'  desc2pkgr()
 #' }
-#' @seealso
-#'  \code{\link[httr]{GET}}
-#'  \code{\link[utils]{download.file}}
-#'  \code{\link[yaml]{as.yaml}}
-#'  \code{\link[whisker]{whisker.render}}
-#'  \code{\link[desc]{desc_get_field}}
 #' @rdname desc2pkgr
 #' @export
 #' @importFrom httr GET
