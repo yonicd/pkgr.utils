@@ -2,6 +2,9 @@ list2switch <- function(x){
   paste0(sprintf('--%s=%s',gsub('[ ._]','-',names(x)),x),collapse = ' ')
 }
 
+list2flag <- function(x){
+  paste0(sprintf('--%s',gsub('[ ._]','-',x)),collapse = ' ')
+}
 
 #' @title Compare packages listed in pkgSetup and pkgr.yml
 #' @description Compare packages listed in pkgSetup and pkgr.yml and return the
