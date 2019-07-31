@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of pkgr.utils is to ...
+The goal of `pkgr.utils` is to control `pkgr` with utility functions from within `R`.
 
 ## Example
 
@@ -25,37 +25,54 @@ This is a basic example which shows you how to solve a common problem:
 
 ```{r example}
 library(pkgr.utils)
-## basic example code
 ```
+
+### Command line builders
+
+add/remove packages to `pkgr.yml`
 
 ```{r}
-pkgr.add(c('dplyr','ggplot2'))
+pkgs <- c('dplyr','ggplot2')
 
-pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml')
+pkgs%>%
+  pkgr.add()
 
-pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml',flags='install')
+pkgs%>%
+  pkgr.add(config='pkgr.yml')
 
-pkgr.remove(c('dplyr','ggplot2'))
+pkgs%>%
+  pkgr.add(config='pkgr.yml',flags='install')
 
+pkgs[1]%>%
+  pkgr.remove()
+```
+
+plan/install
+
+```{r}
+# basic
+pkgr.plan()
 pkgr.install()
 
+
+# with options
 pkgr.install(config='pkgr.yml',library=.libPaths()[1])
 
-pkgr.plan(config='pkgr.yml',library=.libPaths()[1])
 ```
+
+### Convert DESCRIPTION file to pkgr.yml
 
 ```{r}
 pkgr.utils::desc2pkgr()
 ```
 
-```{r}
-
-
-```
+### Convert pkgSetup.R file to pkgr.yml
 
 ```{r}
 pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'))
 ```
+
+### Find difference in packages listed in pkgSetup and pkgr.yml
 
 ```{r}
 

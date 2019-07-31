@@ -42,7 +42,7 @@ pkgSetup2pkgr <- function(pkgsetup = 'pkgSetup.R', src_path = 'pkg', lib_path = 
 #' @importFrom utils getParseData
 parse.pkgSetup <- function(pkgsetup = 'pkgSetup.R'){
 
-  x <- utils::getParseData(parse(pkgsetup),includeText = TRUE)
+  x <- utils::getParseData(parse(pkgsetup,keep.source = TRUE),includeText = TRUE)
 
   y <- grep('^pkgs',x$text[x$parent==0],value = TRUE)[1]
 
