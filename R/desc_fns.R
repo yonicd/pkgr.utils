@@ -68,7 +68,7 @@ update_pkgr_desc <- function(desc_file = '.', pkgr_yml, test = TRUE){
 
   this_yaml <- yaml::read_yaml(pkgr_yml)
 
-  this_yaml$Packages <- union(desc2vec(file = desc_file),this_yaml$Packages)
+  this_yaml$Packages <- union(desc2vec(file = desc_file)$package,this_yaml$Packages)
 
   if(test){
 

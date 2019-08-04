@@ -2,12 +2,12 @@
 % Please edit documentation in R/utils.R
 \name{pkgr.diff}
 \alias{pkgr.diff}
-\title{Compare packages listed in pkgSetup and pkgr.yml}
+\title{Compare packages listed in DESCRIPTION/pkgSetup.R and pkgr.yml}
 \usage{
-pkgr.diff(pkgsetup = "pkgSetup.R", pkgr = "pkgr.yml")
+pkgr.diff(src = "DESCRIPTION", pkgr = "pkgr.yml")
 }
 \arguments{
-\item{pkgsetup}{character, path to pkgSetup.R , Default: 'pkgSetup.R'}
+\item{src}{character, path to DESCRIPTION/pkgSetup.R , Default: 'DESCRIPTION'}
 
 \item{pkgr}{character, path to pkgr.yml, Default: 'pkgr.yml'}
 }
@@ -15,12 +15,12 @@ pkgr.diff(pkgsetup = "pkgSetup.R", pkgr = "pkgr.yml")
 character
 }
 \description{
-Compare packages listed in pkgSetup and pkgr.yml and return the
-setdiff.
+Compare packages listed in DESCRIPTION/pkgSetup.R and pkgr.yml
+and return the setdiff.
 }
 \details{
-The setdiff returns what packages are in pkgSetup that are missing
-from pkgr.yml Package field.
+The setdiff returns what packages are in DESCRIPTION/pkgSetup.R
+that are missing from pkgr.yml Package field.
 }
 \examples{
 \dontrun{
