@@ -30,10 +30,10 @@ list2flag <- function(x){
 #' @importFrom yaml read_yaml
 pkgr.diff <- function(src = 'DESCRIPTION',pkgr = 'pkgr.yml'){
 
-  if(basename(src)=='DESCRIPTION'){
+  if(grepl('DESCRIPTION',basename(src))){
     src_pkgs <- desc2vec(file = src)$package
   }else{
-    src_pkgs <- parse.pkgSetup(pkgsetup)
+    src_pkgs <- parse.pkgSetup(src)
   }
 
 

@@ -62,8 +62,17 @@ pkgr.install(config='pkgr.yml',library=.libPaths()[1])
 
 ### Convert DESCRIPTION file to pkgr.yml
 
+#### Local
+
 ```{r}
 pkgr.utils::desc2pkgr()
+```
+
+#### URL
+
+```{r}
+sinew_uri <- 'https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/DESCRIPTION'
+sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
 ```
 
 ### Convert pkgSetup.R file to pkgr.yml
@@ -72,12 +81,26 @@ pkgr.utils::desc2pkgr()
 pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'))
 ```
 
-### Find difference in packages listed in pkgSetup and pkgr.yml
+### Find difference in packages listed in DESCRIPTION/pkgSetup and pkgr.yml
+
+#### pkgSetup.R
 
 ```{r}
-
 tf <- tempfile(fileext = '.yml')
 pkgr.utils::desc2pkgr(out = tf)
 
-pkgr.utils::pkgr.diff(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
+pkgr.utils::pkgr.diff(src = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
+```
+
+#### DESCRIPTION
+
+```{r}
+tf_desc <- tempfile(pattern = 'DESCRIPTION')
+utils::download.file(sinew_uri, destfile = tf_desc, quiet = TRUE)
+
+readLines(tf_desc)
+```
+
+```{r}
+pkgr.utils::pkgr.diff(src = tf_desc,pkgr = tf)
 ```

@@ -59,6 +59,8 @@ pkgr.install(config='pkgr.yml',library=.libPaths()[1])
 
 ### Convert DESCRIPTION file to pkgr.yml
 
+#### Local
+
 ``` r
 pkgr.utils::desc2pkgr()
 #> # DESCRIPTION file of 'pkgr.utils' converted to pkgr.yml
@@ -70,6 +72,38 @@ pkgr.utils::desc2pkgr()
 #> - whisker
 #> - desc
 #> - magrittr
+#> 
+#> Repos:
+#> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
+#> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
+#> - mrg_val: https://metrumresearchgroup.github.io/r_validated
+#> - CRAN: 'https://cran.rstudio.com'
+#> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
+#> Cache: pkgcache
+#> Logging:
+#>   all: pkgr-log.log
+```
+
+#### URL
+
+``` r
+sinew_uri <- 'https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/DESCRIPTION'
+sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
+#> # DESCRIPTION file of 'sinew' converted to pkgr.yml
+#> Version: 1
+#> Threads: 4
+#> Packages:
+#> - rstudioapi
+#> - shiny
+#> - miniUI
+#> - sos
+#> - stringi
+#> - yaml
+#> - crayon
+#> - cli
+#> - rematch2
+#> - roxygen2
+#> - testthat
 #> 
 #> Repos:
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
@@ -160,14 +194,15 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 #>   all: pkgr-log.log
 ```
 
-### Find difference in packages listed in pkgSetup and pkgr.yml
+### Find difference in packages listed in DESCRIPTION/pkgSetup and pkgr.yml
+
+#### pkgSetup.R
 
 ``` r
-
 tf <- tempfile(fileext = '.yml')
 pkgr.utils::desc2pkgr(out = tf)
 
-pkgr.utils::pkgr.diff(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
+pkgr.utils::pkgr.diff(src = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
 #>  [1] "anytime"    "batchmeans" "bayesplot"  "bitops"     "boot"      
 #>  [6] "broom"      "caTools"    "corrplot"   "corrr"      "data.table"
 #> [11] "devtools"   "DHARMa"     "digest"     "docxtractr" "fork"      
@@ -180,4 +215,44 @@ pkgr.utils::pkgr.diff(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'
 #> [46] "reshape2"   "review"     "rlecuyer"   "rmarkdown"  "scales"    
 #> [51] "tidynm"     "tidyverse"  "vpc"        "XML"        "xtable"    
 #> [56] "yspec"
+```
+
+#### DESCRIPTION
+
+``` r
+tf_desc <- tempfile(pattern = 'DESCRIPTION')
+utils::download.file(sinew_uri, destfile = tf_desc, quiet = TRUE)
+
+readLines(tf_desc)
+#>  [1] "Package: sinew"                                                                            
+#>  [2] "Type: Package"                                                                             
+#>  [3] "Title: Create 'roxygen2' Skeleton with Information from Function Script"                   
+#>  [4] "Version: 0.3.9004"                                                                         
+#>  [5] "Date: 2018-12-03"                                                                          
+#>  [6] "Author: c(person(\"Jonathan\", \"Sidi\", email = \"yonis@metrumrg.com\", role = c(\"aut\","
+#>  [7] "         \"cre\")), "                                                                      
+#>  [8] "         person(\"Anton\",\"Grishin\",role = \"ctb\"),"                                    
+#>  [9] "         person(\"Lorenzo\",\"Busetto\",role = \"ctb\"),"                                  
+#> [10] "         person(\"Alexey\",\"Shiklomanov\",role = \"ctb\"))"                               
+#> [11] "Maintainer: Jonathan Sidi <yonis@metrumrg.com>"                                            
+#> [12] "Description: Create 'roxygen2' skeleton populated with information scraped from the"       
+#> [13] "         within the function script. Also creates field entries for imports in the"        
+#> [14] "         'DESCRIPTION' and import in the 'NAMESPACE' files. Can be run from the R"         
+#> [15] "         console or through the 'RStudio' 'addin' menu."                                   
+#> [16] "Depends: R (>= 2.3.0)"                                                                     
+#> [17] "Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml,crayon,cli,rematch2"         
+#> [18] "License: GPL-2 | GPL-3"                                                                    
+#> [19] "Suggests: roxygen2,testthat"                                                               
+#> [20] "URL: https://github.com/metrumresearchgroup/sinew"                                         
+#> [21] "BugReports: https://github.com/metrumresearchgroup/sinew/issues"                           
+#> [22] "LazyData: true"                                                                            
+#> [23] "NeedsCompilation: no"                                                                      
+#> [24] "Packaged: 2017-01-31 14:00:00 UTC; Yoni"                                                   
+#> [25] "RoxygenNote: 6.1.1"
+```
+
+``` r
+pkgr.utils::pkgr.diff(src = tf_desc,pkgr = tf)
+#>  [1] "rstudioapi" "shiny"      "miniUI"     "sos"        "stringi"   
+#>  [6] "crayon"     "cli"        "rematch2"   "roxygen2"   "testthat"
 ```
