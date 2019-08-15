@@ -55,6 +55,10 @@ pkgr.install()
 # with options
 pkgr.install(config='pkgr.yml',library=.libPaths()[1])
 #> [1] "pkgr install --config=pkgr.yml --library=/Library/Frameworks/R.framework/Versions/3.6/Resources/library"
+
+# using pkgr.here function
+pkgr.install(config=pkgr.here(),library=.libPaths()[1])
+#> [1] "pkgr install --config=/Users/yonis/projects/pkgr.utils/pkgr.yml --library=/Library/Frameworks/R.framework/Versions/3.6/Resources/library"
 ```
 
 ### Convert DESCRIPTION file to pkgr.yml
@@ -72,6 +76,7 @@ pkgr.utils::desc2pkgr()
 #> - whisker
 #> - desc
 #> - magrittr
+#> - here
 #> 
 #> Repos:
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external

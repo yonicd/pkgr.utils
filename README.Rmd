@@ -58,6 +58,9 @@ pkgr.install()
 # with options
 pkgr.install(config='pkgr.yml',library=.libPaths()[1])
 
+# using pkgr.here function
+pkgr.install(config=pkgr.here(),library=.libPaths()[1])
+
 ```
 
 ### Convert DESCRIPTION file to pkgr.yml

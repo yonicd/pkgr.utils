@@ -1,4 +1,22 @@
+#' @title Location of pkgr.yml
+#' @description Function that uses \code{\link[here]{here}} to build path to pkgr.yml
+#' @param path here path to pkgr.yml, Default: 'pkgr.yml'
+#' @return character
+#' @examples
+#' pkgr.here()
+#' @seealso
+#'  \code{\link[here]{here}}
+#' @rdname pkgr.here
+#' @export
+#' @importFrom here here
+pkgr.here <- function(path = 'pkgr.yml'){
+  here::here(path)
+}
+
 list2switch <- function(x){
+
+  x <- lapply(x,FUN=function(xx) ifelse(is_file(xx),normalizePath(xx),xx))
+
   paste0(sprintf('--%s=%s',gsub('[ ._]','-',names(x)),x),collapse = ' ')
 }
 
@@ -49,3 +67,7 @@ pkgr.diff <- function(src = 'DESCRIPTION',pkgr = 'pkgr.yml'){
 #' @rdname pipe
 #' @export
 NULL
+
+is_file <- function (path) {
+  !is.na(file.info(path)$size)
+}
