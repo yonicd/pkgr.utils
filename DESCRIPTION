@@ -1,10 +1,10 @@
 Package: pkgr.utils
 Type: Package
 Title: Utility Functions or pkgr
-Version: 0.1.2
+Version: 0.1.4
 Description: Utility functions to work with pkgr from with R
 Depends: R (>= 3.2.0)
-Imports: httr, utils, yaml, whisker, desc, magrittr, here
+Imports: httr, utils, yaml, whisker, desc, magrittr, here, rstudioapi
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

@@ -71,3 +71,25 @@ NULL
 is_file <- function (path) {
   !is.na(file.info(path)$size)
 }
+
+
+#' @title Open pkgr.yml in editor
+#' @description Opens a pkgr.file in the RStudio Editor
+#' @param path character, path to pkgr.yml, Default: pkgr.here()
+#' @return NULL
+#' @examples
+#' \dontrun{
+#' pkgr.open()
+#' }
+#' @rdname pkgr.open
+#' @export
+#' @importFrom rstudioapi isAvailable navigateToFile
+pkgr.open <- function(path = pkgr.here()){
+
+  if(rstudioapi::isAvailable()){
+
+    rstudioapi::navigateToFile(path)
+
+  }
+
+}

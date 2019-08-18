@@ -5,6 +5,9 @@
 \alias{pkgr.remove}
 \alias{pkgr.install}
 \alias{pkgr.plan}
+\alias{pkgr.inspect}
+\alias{pkgr.run}
+\alias{pkgr.clean}
 \title{pkgr commands}
 \usage{
 pkgr.add(pkgs, ..., flags = NULL)
@@ -14,6 +17,12 @@ pkgr.remove(pkgs, ..., flags = NULL)
 pkgr.install(..., flags = NULL)
 
 pkgr.plan(..., flags = NULL)
+
+pkgr.inspect(..., flags = NULL)
+
+pkgr.run(..., flags = NULL)
+
+pkgr.clean(..., flags = NULL)
 }
 \arguments{
 \item{pkgs}{character, names of packages passed in add/remove}
@@ -120,7 +129,8 @@ see the plan for an install
 \tabular{llll}{
 \strong{Option} \tab \strong{Class} \tab \strong{Description} \tab \strong{Default}\cr
 config   \tab character \tab config file path                       \tab pkgr.yml\cr
-loglevel \tab character \tab level for logging                       \tab         \cr
+loglevel \tab character \tab level for logging                      \tab         \cr
+library \tab character \tab library to install packag               \tab         \cr
 thread   \tab integer   \tab number of threads to execute with      \tab
 }
 
@@ -155,16 +165,19 @@ update      \tab update packages along with install
 
 pkgr.add(c('dplyr','ggplot2'))
 
-pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml')
+pkgr.add(c('dplyr','ggplot2'), config = 'pkgr.yml')
 
-pkgr.add(c('dplyr','ggplot2'),config='pkgr.yml',flags='install')
+# here::here is built into pkgr.utils
+pkgr.add(c('dplyr','ggplot2'), config = pkgr.here())
+
+pkgr.add(c('dplyr','ggplot2'), config = 'pkgr.yml', flags = 'install')
 
 pkgr.remove(c('dplyr','ggplot2'))
 
 pkgr.install()
 
-pkgr.install(config='pkgr.yml',library=.libPaths()[1])
+pkgr.install(config = 'pkgr.yml', library = .libPaths()[1])
 
-pkgr.plan(config='pkgr.yml',library=.libPaths()[1])
+pkgr.plan(config = 'pkgr.yml', library = .libPaths()[1])
 
 }
