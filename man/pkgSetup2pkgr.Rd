@@ -10,7 +10,7 @@ pkgSetup2pkgr(pkgsetup = "pkgSetup.R", repos = c(pkgsetup = "pkg",
 \arguments{
 \item{pkgsetup}{PARAM_DESCRIPTION, Default: 'pkgSetup.R'}
 
-\item{repos}{PARAM_DESCRIPTION, Default: c('pkg',mrg_repos,cran_repos)}
+\item{repos}{PARAM_DESCRIPTION, Default: c(pkgsetup = 'pkg',mrg_repos,cran_repos)}
 
 \item{libpath}{PARAM_DESCRIPTION, Default: 'lib'}
 
