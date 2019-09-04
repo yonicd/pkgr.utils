@@ -4,20 +4,17 @@
 \alias{pkgSetup2pkgr}
 \title{FUNCTION_TITLE}
 \usage{
-pkgSetup2pkgr(pkgsetup = "pkgSetup.R", src_path = "pkg",
-  lib_path = "lib", pkgr_tmpl = system.file("PKGSETUP.tmpl", package =
-  "pkgr.utils"), out = "")
+pkgSetup2pkgr(pkgsetup = "pkgSetup.R", repos = c(pkgsetup = "pkg",
+  mrg_repos, cran_repos), libpath = "lib", ...)
 }
 \arguments{
 \item{pkgsetup}{PARAM_DESCRIPTION, Default: 'pkgSetup.R'}
 
-\item{src_path}{PARAM_DESCRIPTION, Default: 'pkg'}
+\item{repos}{PARAM_DESCRIPTION, Default: c('pkg',mrg_repos,cran_repos)}
 
-\item{lib_path}{PARAM_DESCRIPTION, Default: 'lib'}
+\item{libpath}{PARAM_DESCRIPTION, Default: 'lib'}
 
-\item{pkgr_tmpl}{PARAM_DESCRIPTION, Default: system.file("PKGSETUP.tmpl", package = "pkgr.utils")}
-
-\item{out}{PARAM_DESCRIPTION, Default: ''}
+\item{\dots}{arguments to pass to \link[pkgr.utils:pkgr.new]{pkgr.new}}
 }
 \value{
 OUTPUT_DESCRIPTION
@@ -29,11 +26,8 @@ FUNCTION_DESCRIPTION
 DETAILS
 }
 \examples{
-\dontrun{
-if(interactive()){
- #EXAMPLE1
- }
-}
+pkgSetup <- system.file('pkgSetup.R',package = 'pkgr.utils')
+pkgSetup2pkgr(pkgSetup)
 }
 \seealso{
 \code{\link[yaml]{as.yaml}}

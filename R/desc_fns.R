@@ -2,12 +2,7 @@
 #' @description Reads in a DESCRIPTION file and populates a pkgr.yml template
 #' with the non base packages listed as Depends, Imports, Suggests
 #' @param desc_path character, path to DESCRIPTION file, Default: '.'
-#' @param src_path character, path to store source files, Default: 'pkg'
-#' @param lib_path characer, path to install libraries, Default: .libPaths()[1]
-#' @param pkgr_tmpl character, path to pkgr template,
-#' Default: system.file("DESC.tmpl", package = "pkgr.utils")
-#' @param out characer, path to save pkgr template, if '' then it is written
-#' to console, Default: ''
+#' @param \dots arguments passed on to [pkgr.new][pkgr.utils::pkgr.new]
 #' @return populated pkgr template
 #' @details The path to the DESCRIPTION file can be a web URI, in this case it will
 #' be downloaded and read.
@@ -19,29 +14,9 @@
 #' @export
 #' @importFrom httr GET
 #' @importFrom utils download.file
-#' @importFrom yaml as.yaml
-#' @importFrom whisker whisker.render
-#' @importFrom desc desc_get_field
-desc2pkgr <- function(desc_path ='.', src_path = 'pkg', lib_path = .libPaths()[1], pkgr_tmpl = system.file('DESC.tmpl',package = 'pkgr.utils'), out = ''){
+desc2pkgr <- function(desc_path ='.', ...){
 
-  if(!inherits(try(httr::GET(desc_path),silent = TRUE),'try-error')){
-    desc_uri <- desc_path
-    desc_path <- tempfile()
-    utils::download.file(desc_uri,destfile = desc_path,quiet = TRUE)
-  }
-
-  pkgs <- yaml::as.yaml(list(Packages=desc2vec(desc_path)$package))
-
-  w <- whisker::whisker.render(
-    template = readLines(pkgr_tmpl),
-    data = list(
-      PKG_NAME = desc::desc_get_field('Package',file = desc_path),
-      PKGS    = pkgs,
-      PKGPATH = src_path,
-      LIBPATH = lib_path)
-    )
-
-  cat(w,file = out,sep='\n')
+  pkgr.new(desc2vec(check_path(desc_path))$package,...)
 
 }
 
@@ -104,6 +79,24 @@ desc2vec <- function(file='.'){
 
   x <- desc::desc_get_deps(file = file)
 
-  x[!x$package%in%c('R','tools','stats','parallel','utils','methods','graphics'),]
+  x[!x$package%in%base_packages(),]
 
+}
+
+base_packages <- function(){
+  i <- utils::installed.packages()
+  ret <- i[ i[,"Priority"] %in% c("base","recommended"), c("Package","Priority")]
+
+  c('R',rownames(ret))
+}
+
+check_path <- function(x){
+
+  if(!inherits(try(httr::GET(x),silent = TRUE),'try-error')){
+    desc_uri <- x
+    x <- tempfile()
+    utils::download.file(desc_uri,destfile = x,quiet = TRUE)
+  }
+
+  x
 }

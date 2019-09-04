@@ -93,3 +93,58 @@ pkgr.open <- function(path = pkgr.here()){
   }
 
 }
+
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param pkgs PARAM_DESCRIPTION, Default: NULL
+#' @param libpath PARAM_DESCRIPTION, Default: 'lib'
+#' @param version PARAM_DESCRIPTION, Default: 1
+#' @param threads PARAM_DESCRIPTION, Default: parallel::detectCores() - 1
+#' @param repos PARAM_DESCRIPTION, Default: c(mrg_repos, cran_repos)
+#' @param pkgr_tmpl PARAM_DESCRIPTION, Default: system.file("pkgr.tmpl", package = "pkgr.utils")
+#' @param out PARAM_DESCRIPTION, Default: ''
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' pkgr.new('dplyr')
+#' @rdname pkgr.new
+#' @export
+#' @importFrom parallel detectCores
+#' @importFrom glue glue
+pkgr.new <- function(pkgs = NULL,
+                     libpath = .libPaths()[1],
+                     version = 1,
+                     threads = parallel::detectCores() - 1,
+                     repos = c(mrg_repos,cran_repos),
+                     pkgr_tmpl = system.file('pkgr.tmpl',package = 'pkgr.utils'),
+                     out = ''){
+
+  comment = '# Created using pkgr.utils template'
+
+  pkgs <- as_yml(pkgs)
+  repos <- as_yml(repos,NAMES = TRUE)
+
+  tmpl <- paste0(readLines(pkgr_tmpl,warn = FALSE),collapse = '\n')
+
+  cat(glue::glue(tmpl),file = out)
+}
+
+mrg_repos <- c(gh_external = 'https://metrumresearchgroup.github.io/rpkgs/gh_external',
+               gh_dev      = 'https://metrumresearchgroup.github.io/rpkgs/gh_dev',
+               mrg_val     = 'https://metrumresearchgroup.github.io/r_validated')
+
+cran_repos <- c(CRAN = 'https://cran.rstudio.com')
+
+as_yml <- function(x,NAMES = FALSE){
+  if(NAMES){
+
+    paste0(sprintf('\n- %s: %s',names(x),x),collapse = '')
+
+  }else{
+
+    paste0(sprintf('\n- %s',x),collapse = '')
+
+  }
+
+}

@@ -61,28 +61,49 @@ pkgr.install(config=pkgr.here(),library=.libPaths()[1])
 #> [1] "pkgr install --config=/Users/yonis/projects/pkgr.utils/pkgr.yml --library=/Library/Frameworks/R.framework/Versions/3.6/Resources/library"
 ```
 
+### Initialize a yml from a template
+
+``` r
+pkgr.new(pkgs)
+#> # Created using pkgr.utils template
+#> Version: 1
+#> Threads: 7
+#> Packages: 
+#> - dplyr
+#> - ggplot2
+#> Repos: 
+#> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
+#> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
+#> - mrg_val: https://metrumresearchgroup.github.io/r_validated
+#> - CRAN: https://cran.rstudio.com
+#> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
+#> Cache: pkgcache
+#> Logging:
+#>   all: pkgr-log.log
+```
+
 ### Convert DESCRIPTION file to pkgr.yml
 
 #### Local
 
 ``` r
 pkgr.utils::desc2pkgr()
-#> # DESCRIPTION file of 'pkgr.utils' converted to pkgr.yml
+#> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 4
-#> Packages:
+#> Threads: 7
+#> Packages: 
 #> - httr
 #> - yaml
 #> - whisker
 #> - desc
 #> - magrittr
 #> - here
-#> 
-#> Repos:
+#> - rstudioapi
+#> Repos: 
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: 'https://cran.rstudio.com'
+#> - CRAN: https://cran.rstudio.com
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -94,10 +115,10 @@ pkgr.utils::desc2pkgr()
 ``` r
 sinew_uri <- 'https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/DESCRIPTION'
 sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
-#> # DESCRIPTION file of 'sinew' converted to pkgr.yml
+#> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 4
-#> Packages:
+#> Threads: 7
+#> Packages: 
 #> - rstudioapi
 #> - shiny
 #> - miniUI
@@ -109,12 +130,11 @@ sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
 #> - rematch2
 #> - roxygen2
 #> - testthat
-#> 
-#> Repos:
+#> Repos: 
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: 'https://cran.rstudio.com'
+#> - CRAN: https://cran.rstudio.com
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -125,9 +145,10 @@ sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
 
 ``` r
 pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'))
+#> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 4
-#> Packages:
+#> Threads: 7
+#> Packages: 
 #> - anytime
 #> - batchmeans
 #> - bayesplot
@@ -186,13 +207,12 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 #> - xtable
 #> - yaml
 #> - yspec
-#> 
-#> Repos:
-#> - pkgsetup: 'pkg'
+#> Repos: 
+#> - pkgsetup: pkg
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: 'https://cran.rstudio.com'
+#> - CRAN: https://cran.rstudio.com
 #> Library: 'lib'
 #> Cache: pkgcache
 #> Logging:
@@ -258,6 +278,6 @@ readLines(tf_desc)
 
 ``` r
 pkgr.utils::pkgr.diff(src = tf_desc,pkgr = tf)
-#>  [1] "rstudioapi" "shiny"      "miniUI"     "sos"        "stringi"   
-#>  [6] "crayon"     "cli"        "rematch2"   "roxygen2"   "testthat"
+#> [1] "shiny"    "miniUI"   "sos"      "stringi"  "crayon"   "cli"     
+#> [7] "rematch2" "roxygen2" "testthat"
 ```

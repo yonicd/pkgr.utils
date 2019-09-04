@@ -4,22 +4,12 @@
 \alias{desc2pkgr}
 \title{Convert a Description file to pkgr.yml}
 \usage{
-desc2pkgr(desc_path = ".", src_path = "pkg",
-  lib_path = .libPaths()[1], pkgr_tmpl = system.file("DESC.tmpl",
-  package = "pkgr.utils"), out = "")
+desc2pkgr(desc_path = ".", ...)
 }
 \arguments{
 \item{desc_path}{character, path to DESCRIPTION file, Default: '.'}
 
-\item{src_path}{character, path to store source files, Default: 'pkg'}
-
-\item{lib_path}{characer, path to install libraries, Default: .libPaths()\link{1}}
-
-\item{pkgr_tmpl}{character, path to pkgr template,
-Default: system.file("DESC.tmpl", package = "pkgr.utils")}
-
-\item{out}{characer, path to save pkgr template, if '' then it is written
-to console, Default: ''}
+\item{\dots}{arguments passed on to \link[pkgr.utils:pkgr.new]{pkgr.new}}
 }
 \value{
 populated pkgr template

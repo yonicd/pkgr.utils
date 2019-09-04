@@ -1,41 +1,22 @@
 #' @title FUNCTION_TITLE
 #' @description FUNCTION_DESCRIPTION
 #' @param pkgsetup PARAM_DESCRIPTION, Default: 'pkgSetup.R'
-#' @param src_path PARAM_DESCRIPTION, Default: 'pkg'
-#' @param lib_path PARAM_DESCRIPTION, Default: 'lib'
-#' @param pkgr_tmpl PARAM_DESCRIPTION, Default: system.file("PKGSETUP.tmpl", package = "pkgr.utils")
-#' @param out PARAM_DESCRIPTION, Default: ''
+#' @param repos PARAM_DESCRIPTION, Default: c(pkgsetup = 'pkg',mrg_repos,cran_repos)
+#' @param libpath PARAM_DESCRIPTION, Default: 'lib'
+#' @param \dots arguments to pass to [pkgr.new][pkgr.utils::pkgr.new]
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples
-#' \dontrun{
-#' if(interactive()){
-#'  #EXAMPLE1
-#'  }
-#' }
+#' pkgSetup <- system.file('pkgSetup.R',package = 'pkgr.utils')
+#' pkgSetup2pkgr(pkgSetup)
 #' @seealso
 #'  \code{\link[yaml]{as.yaml}}
 #'  \code{\link[whisker]{whisker.render}}
 #' @rdname pkgSetup2pkgr
 #' @export
-#' @importFrom yaml as.yaml
-#' @importFrom whisker whisker.render
-pkgSetup2pkgr <- function(pkgsetup = 'pkgSetup.R', src_path = 'pkg', lib_path = 'lib', pkgr_tmpl = system.file('PKGSETUP.tmpl',package = 'pkgr.utils'), out = ''){
+pkgSetup2pkgr <- function(pkgsetup = 'pkgSetup.R', repos = c(pkgsetup = 'pkg',mrg_repos,cran_repos), libpath = 'lib', ...){
 
-  pkgs <- pkgs <- yaml::as.yaml(list(Packages = parse.pkgSetup(pkgsetup)))
-
-  if(is.null(out))
-    out <- ''
-
-  w <- whisker::whisker.render(
-    template = readLines(pkgr_tmpl),
-    data = list(
-      PKGS    = pkgs,
-      PKGPATH = src_path,
-      LIBPATH = lib_path)
-  )
-
-  cat(w,file = out,sep='\n')
+  pkgr.new(parse.pkgSetup(pkgsetup),repos = repos, libpath = libpath)
 
 }
 
