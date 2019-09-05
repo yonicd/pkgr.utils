@@ -1,7 +1,7 @@
 Package: pkgr.utils
 Type: Package
 Title: Utility Functions or pkgr
-Version: 0.1.5
+Version: 0.1.6
 Description: Utility functions to work with pkgr from with R.
 Depends: R (>= 3.2.0)
 Imports: yaml,desc,utils,httr,here,rstudioapi,parallel,glue,cli,magrittr

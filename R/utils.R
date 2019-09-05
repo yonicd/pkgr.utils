@@ -27,10 +27,10 @@ list2flag <- function(x){
 #' @title Compare packages listed in DESCRIPTION/pkgSetup.R and pkgr.yml
 #' @description Compare packages listed in DESCRIPTION/pkgSetup.R and pkgr.yml
 #' and return the setdiff.
-#' @param src character, path to DESCRIPTION/pkgSetup.R , Default: 'DESCRIPTION'
+#' @param src character, path to src file , Default: c('DESCRIPTION','pkgSetup')
 #' @param pkgr character, path to pkgr.yml, Default: 'pkgr.yml'
 #' @return character
-#' @details The setdiff returns what packages are in DESCRIPTION/pkgSetup.R
+#' @details The setdiff returns what packages are in src file
 #' that are missing from pkgr.yml Package field.
 #' @examples
 #' \dontrun{
@@ -46,17 +46,21 @@ list2flag <- function(x){
 #' @rdname pkgr.diff
 #' @export
 #' @importFrom yaml read_yaml
-pkgr.diff <- function(src = 'DESCRIPTION',pkgr = 'pkgr.yml'){
+pkgr.diff <- function(src, pkgr = 'pkgr.yml',...){
 
-  if(grepl('DESCRIPTION',basename(src))){
-    src_pkgs <- desc2vec(file = src)$package
-  }else{
-    src_pkgs <- parse.pkgSetup(src)
-  }
+  type <- names(which(sapply(
+    c("DESCRIPTION", "pkgSetup"),
+    grepl,
+    x = basename(src)))
+    )
 
+  src_pkgs <- get_deps(src,type = type, ...)
 
+  suppressWarnings({
+    pkgr_pkgs <- yaml::read_yaml(pkgr)$Package
+  })
 
-  setdiff( src_pkgs, yaml::read_yaml(pkgr)$Package )
+  setdiff( src_pkgs, pkgr_pkgs )
 
 }
 
@@ -101,7 +105,7 @@ pkgr.open <- function(path = pkgr.here()){
 #' @param libpath PARAM_DESCRIPTION, Default: 'lib'
 #' @param version PARAM_DESCRIPTION, Default: 1
 #' @param threads PARAM_DESCRIPTION, Default: parallel::detectCores() - 1
-#' @param repos PARAM_DESCRIPTION, Default: c(mrg_repos, cran_repos)
+#' @param repos PARAM_DESCRIPTION, Default: get_repos()
 #' @param pkgr_tmpl PARAM_DESCRIPTION, Default: system.file("pkgr.tmpl", package = "pkgr.utils")
 #' @param out PARAM_DESCRIPTION, Default: ''
 #' @return OUTPUT_DESCRIPTION
@@ -116,7 +120,7 @@ pkgr.new <- function(pkgs = NULL,
                      libpath = .libPaths()[1],
                      version = 1,
                      threads = parallel::detectCores() - 1,
-                     repos = c(mrg_repos,cran_repos),
+                     repos = get_repos(),
                      pkgr_tmpl = system.file('pkgr.tmpl',package = 'pkgr.utils'),
                      out = ''){
 
@@ -130,11 +134,6 @@ pkgr.new <- function(pkgs = NULL,
   cat(glue::glue(tmpl),file = out)
 }
 
-mrg_repos <- c(gh_external = 'https://metrumresearchgroup.github.io/rpkgs/gh_external',
-               gh_dev      = 'https://metrumresearchgroup.github.io/rpkgs/gh_dev',
-               mrg_val     = 'https://metrumresearchgroup.github.io/r_validated')
-
-cran_repos <- c(CRAN = 'https://cran.rstudio.com')
 
 as_yml <- function(x,NAMES = FALSE){
   if(NAMES){

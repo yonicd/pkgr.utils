@@ -64,7 +64,8 @@ pkgr.install(config=pkgr.here(),library=.libPaths()[1])
 ### Initialize a yml from a template
 
 ``` r
-pkgr.new(pkgs)
+pkgs%>%
+  pkgr.utils::pkgr.new()
 #> # Created using pkgr.utils template
 #> Version: 1
 #> Threads: 7
@@ -75,7 +76,7 @@ pkgr.new(pkgs)
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: https://cran.rstudio.com
+#> - rs_cran: https://cran.rstudio.com
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -87,23 +88,26 @@ pkgr.new(pkgs)
 #### Local
 
 ``` r
-pkgr.utils::desc2pkgr()
+
+pkgr.utils::get_deps()%>%
+  pkgr.utils::pkgr.new()
 #> # Created using pkgr.utils template
 #> Version: 1
 #> Threads: 7
 #> Packages: 
-#> - httr
 #> - yaml
-#> - whisker
 #> - desc
-#> - magrittr
+#> - httr
 #> - here
 #> - rstudioapi
+#> - glue
+#> - cli
+#> - magrittr
 #> Repos: 
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: https://cran.rstudio.com
+#> - rs_cran: https://cran.rstudio.com
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -114,7 +118,10 @@ pkgr.utils::desc2pkgr()
 
 ``` r
 sinew_uri <- 'https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/DESCRIPTION'
-sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
+
+sinew_uri%>%
+  pkgr.utils::get_deps()%>%
+  pkgr.utils::pkgr.new()
 #> # Created using pkgr.utils template
 #> Version: 1
 #> Threads: 7
@@ -134,7 +141,7 @@ sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: https://cran.rstudio.com
+#> - rs_cran: https://cran.rstudio.com
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -144,7 +151,13 @@ sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
 ### Convert pkgSetup.R file to pkgr.yml
 
 ``` r
-pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'))
+
+system.file('pkgSetup.R',package = 'pkgr.utils')%>%
+  pkgr.utils::get_deps(type = 'pkgSetup')%>%
+  pkgr.utils::pkgr.new(
+    repos = c(pkgsetup = 'pkg',pkgr.utils::get_repos()),
+    libpath = 'lib'
+  )
 #> # Created using pkgr.utils template
 #> Version: 1
 #> Threads: 7
@@ -153,7 +166,6 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 #> - batchmeans
 #> - bayesplot
 #> - bitops
-#> - boot
 #> - broom
 #> - caTools
 #> - corrplot
@@ -177,12 +189,9 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 #> - knitr
 #> - lubridate
 #> - magrittr
-#> - MASS
-#> - Matrix
 #> - MCMCpack
 #> - mcmcse
 #> - metrumrg
-#> - mgcv
 #> - mrggsave
 #> - mrgsolve
 #> - mrgtable
@@ -212,7 +221,7 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
 #> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - CRAN: https://cran.rstudio.com
+#> - rs_cran: https://cran.rstudio.com
 #> Library: 'lib'
 #> Cache: pkgcache
 #> Logging:
@@ -225,59 +234,39 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 
 ``` r
 tf <- tempfile(fileext = '.yml')
-pkgr.utils::desc2pkgr(out = tf)
 
-pkgr.utils::pkgr.diff(src = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
-#>  [1] "anytime"    "batchmeans" "bayesplot"  "bitops"     "boot"      
-#>  [6] "broom"      "caTools"    "corrplot"   "corrr"      "data.table"
-#> [11] "devtools"   "DHARMa"     "digest"     "docxtractr" "fork"      
-#> [16] "formatR"    "GGally"     "ggcorrplot" "ggrepel"    "glmnet"    
-#> [21] "gridExtra"  "haven"      "Hmisc"      "htmltools"  "kableExtra"
-#> [26] "knitr"      "lubridate"  "MASS"       "Matrix"     "MCMCpack"  
-#> [31] "mcmcse"     "metrumrg"   "mgcv"       "mrggsave"   "mrgsolve"  
-#> [36] "mrgtable"   "npde"       "ordinalNet" "PKNCA"      "PKPDmisc"  
-#> [41] "pmplots"    "png"        "qapply"     "remotes"    "reprex"    
-#> [46] "reshape2"   "review"     "rlecuyer"   "rmarkdown"  "scales"    
-#> [51] "tidynm"     "tidyverse"  "vpc"        "XML"        "xtable"    
-#> [56] "yspec"
+pkgr.utils::get_deps(type = 'DESCRIPTION')%>%
+  pkgr.utils::pkgr.new(
+    repos = c(pkgsetup = 'pkg',pkgr.utils::get_repos()),
+    libpath = 'lib',
+    out = tf
+  )
+
+pkgr.utils::pkgr.diff(
+  src = system.file('pkgSetup.R',package = 'pkgr.utils'),
+  pkgr = tf
+)
+#>  [1] "anytime"    "batchmeans" "bayesplot"  "bitops"     "broom"     
+#>  [6] "caTools"    "corrplot"   "corrr"      "data.table" "devtools"  
+#> [11] "DHARMa"     "digest"     "docxtractr" "fork"       "formatR"   
+#> [16] "GGally"     "ggcorrplot" "ggrepel"    "glmnet"     "gridExtra" 
+#> [21] "haven"      "Hmisc"      "htmltools"  "kableExtra" "knitr"     
+#> [26] "lubridate"  "MCMCpack"   "mcmcse"     "metrumrg"   "mrggsave"  
+#> [31] "mrgsolve"   "mrgtable"   "npde"       "ordinalNet" "PKNCA"     
+#> [36] "PKPDmisc"   "pmplots"    "png"        "qapply"     "remotes"   
+#> [41] "reprex"     "reshape2"   "review"     "rlecuyer"   "rmarkdown" 
+#> [46] "scales"     "tidynm"     "tidyverse"  "vpc"        "XML"       
+#> [51] "xtable"     "yspec"
 ```
 
 #### DESCRIPTION
 
 ``` r
-tf_desc <- tempfile(pattern = 'DESCRIPTION')
-utils::download.file(sinew_uri, destfile = tf_desc, quiet = TRUE)
 
-readLines(tf_desc)
-#>  [1] "Package: sinew"                                                                            
-#>  [2] "Type: Package"                                                                             
-#>  [3] "Title: Create 'roxygen2' Skeleton with Information from Function Script"                   
-#>  [4] "Version: 0.3.9004"                                                                         
-#>  [5] "Date: 2018-12-03"                                                                          
-#>  [6] "Author: c(person(\"Jonathan\", \"Sidi\", email = \"yonis@metrumrg.com\", role = c(\"aut\","
-#>  [7] "         \"cre\")), "                                                                      
-#>  [8] "         person(\"Anton\",\"Grishin\",role = \"ctb\"),"                                    
-#>  [9] "         person(\"Lorenzo\",\"Busetto\",role = \"ctb\"),"                                  
-#> [10] "         person(\"Alexey\",\"Shiklomanov\",role = \"ctb\"))"                               
-#> [11] "Maintainer: Jonathan Sidi <yonis@metrumrg.com>"                                            
-#> [12] "Description: Create 'roxygen2' skeleton populated with information scraped from the"       
-#> [13] "         within the function script. Also creates field entries for imports in the"        
-#> [14] "         'DESCRIPTION' and import in the 'NAMESPACE' files. Can be run from the R"         
-#> [15] "         console or through the 'RStudio' 'addin' menu."                                   
-#> [16] "Depends: R (>= 2.3.0)"                                                                     
-#> [17] "Imports: rstudioapi,utils,shiny,miniUI,tools,sos,stringi,yaml,crayon,cli,rematch2"         
-#> [18] "License: GPL-2 | GPL-3"                                                                    
-#> [19] "Suggests: roxygen2,testthat"                                                               
-#> [20] "URL: https://github.com/metrumresearchgroup/sinew"                                         
-#> [21] "BugReports: https://github.com/metrumresearchgroup/sinew/issues"                           
-#> [22] "LazyData: true"                                                                            
-#> [23] "NeedsCompilation: no"                                                                      
-#> [24] "Packaged: 2017-01-31 14:00:00 UTC; Yoni"                                                   
-#> [25] "RoxygenNote: 6.1.1"
-```
+pkgr.utils::pkgr.diff(src = 'DESCRIPTION',pkgr = tf)
+#> character(0)
 
-``` r
-pkgr.utils::pkgr.diff(src = tf_desc,pkgr = tf)
-#> [1] "shiny"    "miniUI"   "sos"      "stringi"  "crayon"   "cli"     
-#> [7] "rematch2" "roxygen2" "testthat"
+pkgr.utils::pkgr.diff(src = sinew_uri,pkgr = tf)
+#> [1] "shiny"    "miniUI"   "sos"      "stringi"  "crayon"   "rematch2"
+#> [7] "roxygen2" "testthat"
 ```

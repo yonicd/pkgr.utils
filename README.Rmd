@@ -67,7 +67,8 @@ pkgr.install(config=pkgr.here(),library=.libPaths()[1])
 ### Initialize a yml from a template
 
 ```{r}
-pkgr.new(pkgs)
+pkgs%>%
+  pkgr.utils::pkgr.new()
 ```
 
 ### Convert DESCRIPTION file to pkgr.yml
@@ -75,20 +76,33 @@ pkgr.new(pkgs)
 #### Local
 
 ```{r}
-pkgr.utils::desc2pkgr()
+
+pkgr.utils::get_deps()%>%
+  pkgr.utils::pkgr.new()
+
 ```
 
 #### URL
 
 ```{r}
 sinew_uri <- 'https://raw.githubusercontent.com/metrumresearchgroup/sinew/master/DESCRIPTION'
-sinew_pkgr <- pkgr.utils::desc2pkgr(sinew_uri)
+
+sinew_uri%>%
+  pkgr.utils::get_deps()%>%
+  pkgr.utils::pkgr.new()
 ```
 
 ### Convert pkgSetup.R file to pkgr.yml
 
 ```{r}
-pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.utils'))
+
+system.file('pkgSetup.R',package = 'pkgr.utils')%>%
+  pkgr.utils::get_deps(type = 'pkgSetup')%>%
+  pkgr.utils::pkgr.new(
+    repos = c(pkgsetup = 'pkg',pkgr.utils::get_repos()),
+    libpath = 'lib'
+  )
+
 ```
 
 ### Find difference in packages listed in DESCRIPTION/pkgSetup and pkgr.yml
@@ -97,20 +111,27 @@ pkgr.utils::pkgSetup2pkgr(pkgsetup = system.file('pkgSetup.R',package = 'pkgr.ut
 
 ```{r}
 tf <- tempfile(fileext = '.yml')
-pkgr.utils::desc2pkgr(out = tf)
 
-pkgr.utils::pkgr.diff(src = system.file('pkgSetup.R',package = 'pkgr.utils'),pkgr = tf)
+pkgr.utils::get_deps(type = 'DESCRIPTION')%>%
+  pkgr.utils::pkgr.new(
+    repos = c(pkgsetup = 'pkg',pkgr.utils::get_repos()),
+    libpath = 'lib',
+    out = tf
+  )
+
+pkgr.utils::pkgr.diff(
+  src = system.file('pkgSetup.R',package = 'pkgr.utils'),
+  pkgr = tf
+)
+
 ```
 
 #### DESCRIPTION
 
 ```{r}
-tf_desc <- tempfile(pattern = 'DESCRIPTION')
-utils::download.file(sinew_uri, destfile = tf_desc, quiet = TRUE)
 
-readLines(tf_desc)
-```
+pkgr.utils::pkgr.diff(src = 'DESCRIPTION',pkgr = tf)
 
-```{r}
-pkgr.utils::pkgr.diff(src = tf_desc,pkgr = tf)
+pkgr.utils::pkgr.diff(src = sinew_uri,pkgr = tf)
+
 ```

@@ -5,9 +5,9 @@
 \title{FUNCTION_TITLE}
 \usage{
 pkgr.new(pkgs = NULL, libpath = .libPaths()[1], version = 1,
-  threads = parallel::detectCores() - 1, repos = c(mrg_repos,
-  cran_repos), pkgr_tmpl = system.file("pkgr.tmpl", package =
-  "pkgr.utils"), out = "")
+  threads = parallel::detectCores() - 1, repos = get_repos(),
+  pkgr_tmpl = system.file("pkgr.tmpl", package = "pkgr.utils"),
+  out = "")
 }
 \arguments{
 \item{pkgs}{PARAM_DESCRIPTION, Default: NULL}
@@ -18,7 +18,7 @@ pkgr.new(pkgs = NULL, libpath = .libPaths()[1], version = 1,
 
 \item{threads}{PARAM_DESCRIPTION, Default: parallel::detectCores() - 1}
 
-\item{repos}{PARAM_DESCRIPTION, Default: c(mrg_repos, cran_repos)}
+\item{repos}{PARAM_DESCRIPTION, Default: get_repos()}
 
 \item{pkgr_tmpl}{PARAM_DESCRIPTION, Default: system.file("pkgr.tmpl", package = "pkgr.utils")}
 

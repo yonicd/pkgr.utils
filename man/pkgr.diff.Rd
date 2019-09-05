@@ -4,10 +4,10 @@
 \alias{pkgr.diff}
 \title{Compare packages listed in DESCRIPTION/pkgSetup.R and pkgr.yml}
 \usage{
-pkgr.diff(src = "DESCRIPTION", pkgr = "pkgr.yml")
+pkgr.diff(src, pkgr = "pkgr.yml", ...)
 }
 \arguments{
-\item{src}{character, path to DESCRIPTION/pkgSetup.R , Default: 'DESCRIPTION'}
+\item{src}{character, path to src file , Default: c('DESCRIPTION','pkgSetup')}
 
 \item{pkgr}{character, path to pkgr.yml, Default: 'pkgr.yml'}
 }
@@ -19,7 +19,7 @@ Compare packages listed in DESCRIPTION/pkgSetup.R and pkgr.yml
 and return the setdiff.
 }
 \details{
-The setdiff returns what packages are in DESCRIPTION/pkgSetup.R
+The setdiff returns what packages are in src file
 that are missing from pkgr.yml Package field.
 }
 \examples{
