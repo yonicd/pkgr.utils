@@ -243,7 +243,7 @@ flags_list <- list(
 )
 
 parameters_list <- list(
-  global  = c('config','library','log-level','threads'),
+  global  = c('config','library','loglevel','threads'),
   run     = 'pkg'
 )
 
