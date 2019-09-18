@@ -15,6 +15,8 @@ use_pkgr <- function(){
     'Installing pkgr on a {cli::col_red(R.version$os)} system',
     cli::rule(),.sep = '\n')
 
+  footer <- ' '
+  
   this_os <- os[sapply(os,grepl,x=R.version$os)]
   
   body <-  switch(this_os,
@@ -33,9 +35,11 @@ use_pkgr <- function(){
            c('browse to: https://github.com/metrumresearchgroup/pkgr#getting-started')
          })
 
-    glue_this <- c(header,body)
+    glue_this <- c(header,body,footer)
 
-    glue::glue_collapse(glue_this,sep = '\n')
+    on.exit(install_menu(body,this_os),add = TRUE)
+    
+    print(glue::glue_collapse(glue_this,sep = '\n'))
 
 }
 
@@ -60,6 +64,41 @@ current_release <- function(owner = 'metrumresearchgroup', repo = 'pkgr', os = c
 }
 
 #' @export
+#' @importFrom cli rule col_red
+#' @importFrom utils menu
+#' @importFrom glue glue
 pkgr.current_release <- function(os = "linux"){
   gsub('^v','',basename(dirname(current_release(os = os))))
+}
+
+install_menu <- function(body,this_os){
+
+  release_v <- pkgr.current_release()
+  local_v <- pkgr.version()
+
+  if(!identical(release_v,local_v)){
+  
+  if(interactive()&this_os%in%c('linux','darwin')){
+
+      print(glue::glue(cli::rule(left = cli::col_red('{local_v} is currently installed. Update to the {release_v}?'),line = 2)))
+      
+      if(utils::menu(choices = c('Yes','No'))==1)
+        system(paste(body,collapse =' ; '))
+      
+    }
+   
+  }
+  
+  print(version_message(local_v = local_v,release_v = release_v))
+  
+}
+
+#' @importFrom cli rule col_blue
+#' @importFrom glue glue
+version_message <- function(local_v = pkgr.version(), release_v = pkgr.current_release()){
+  
+  flag <- ifelse(identical(release_v,local_v),"Current Release","Not Current Release")
+  
+  glue::glue(cli::rule(left = cli::col_blue('pkgr Version: {local_v} ({flag}) is Installed'),line = 2))
+  
 }
