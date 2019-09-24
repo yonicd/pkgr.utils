@@ -5,10 +5,12 @@
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of `pkgr.utils` is to control `pkgr` with utility functions
-from within `R`.
+The goal of `pkgr.utils` is to create `pkgr` commands and config files
+from templates from within `R`.
 
 ## Example
 
@@ -103,6 +105,8 @@ pkgr.utils::get_deps()%>%
 #> - glue
 #> - cli
 #> - magrittr
+#> - jsonlite
+#> - curl
 #> Repos: 
 #> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
 #> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
