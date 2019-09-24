@@ -22,6 +22,9 @@ library(pkgr.utils)
 
 ### Command line builders
 
+> To run these outputs from within `R` pipe (`%>%`) them into a `system`
+> call.
+
 add/remove packages to `pkgr.yml`
 
 ``` r
