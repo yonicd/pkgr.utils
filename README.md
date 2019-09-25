@@ -4,8 +4,9 @@ pkgr.utils
 ==========
 
 <!-- badges: start -->
-<!-- badges: end -->
-The goal of `pkgr.utils` is to control `pkgr` with utility functions from within `R`.
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) <!-- badges: end -->
+
+The goal of `pkgr.utils` is to create `pkgr` commands and config files from templates from within `R`.
 
 Example
 -------
@@ -33,6 +34,8 @@ pkgr.utils::use_pkgr()
 ```
 
 ### Command line builders
+
+> To run these outputs from within `R` pipe (`%>%`) them into a `system` call.
 
 add/remove packages to `pkgr.yml`
 
