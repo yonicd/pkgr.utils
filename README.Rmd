@@ -28,6 +28,15 @@ This is a basic example which shows you how to solve a common problem:
 library(pkgr.utils)
 ```
 
+### Updating/Installing pkgr with pkgr.utils
+
+`Use_pkgr()` checks the OS that R is being used on and returns installation instructions for pkgr on the system. It also checks if the current release is installed on the system. If it is not then the user is asked if the steps listed should be executed to update to the current release.
+
+```{r}
+pkgr.utils::use_pkgr()
+```
+
+
 ### Command line builders
 
 add/remove packages to `pkgr.yml`

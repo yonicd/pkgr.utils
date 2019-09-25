@@ -82,9 +82,11 @@ install_menu <- function(body,this_os){
 
       print(glue::glue(cli::rule(left = cli::col_red('{local_v} is currently installed. Update to the {release_v}?'),line = 2)))
       
-      if(utils::menu(choices = c('Yes','No'))==1)
+      if(utils::menu(choices = c('Yes','No'))==1){
         system(paste(body,collapse =' ; '))
-      
+        local_v <- pkgr.version()
+      }
+    
     }
    
   }
