@@ -4,11 +4,13 @@
 \alias{get_repos}
 \title{Stored Repositories}
 \usage{
-get_repos(name = c("gh_external", "gh_dev", "mrg_val", "rs_cran"))
+get_repos(name = c("MPN", "CRAN"), snapshot = Sys.Date())
 }
 \arguments{
 \item{name}{character, Names of repositories to return,
-Default: c("gh_external", "gh_dev", "mrg_val", "rs_cran")}
+Default: c("MPN", "CRAN")}
+
+\item{snapshot}{Date, date of the snapshot of the repository, Default: Sys.Date()}
 }
 \value{
 character
@@ -16,6 +18,17 @@ character
 \description{
 Returns names of stored CRAN and CRANlike repositories
 }
+\details{
+Snapshot value is coerced into a Date class internally.
+
+The earliest date for 'MPN' is '2019-09-22', if snapshot is earlier than this and
+the user includes 'MPN' in name then snapshot will be replaced with '2019-09-22'.
+}
 \examples{
 get_repos()
+
+get_repos(name = 'MPN')
+
+get_repos(name = 'MPN', snapshot = Sys.Date() - 1)
+
 }
