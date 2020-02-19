@@ -4,10 +4,15 @@
 \alias{pkgr.new}
 \title{FUNCTION_TITLE}
 \usage{
-pkgr.new(pkgs = NULL, libpath = .libPaths()[1], version = 1,
-  threads = parallel::detectCores() - 1, repos = get_repos(),
+pkgr.new(
+  pkgs = NULL,
+  libpath = .libPaths()[1],
+  version = 1,
+  threads = parallel::detectCores() - 1,
+  repos = get_repos(),
   pkgr_tmpl = system.file("pkgr.tmpl", package = "pkgr.utils"),
-  out = "")
+  out = ""
+)
 }
 \arguments{
 \item{pkgs}{PARAM_DESCRIPTION, Default: NULL}

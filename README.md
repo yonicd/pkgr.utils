@@ -1,15 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-pkgr.utils
-==========
+
+# pkgr.utils
 
 <!-- badges: start -->
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) <!-- badges: end -->
 
-The goal of `pkgr.utils` is to create `pkgr` commands and config files from templates from within `R`.
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!-- badges: end -->
 
-Example
--------
+The goal of `pkgr.utils` is to create `pkgr` commands and config files
+from templates from within `R`.
+
+## Example
 
 This is a basic example which shows you how to solve a common problem:
 
@@ -19,23 +22,26 @@ library(pkgr.utils)
 
 ### Updating/Installing pkgr with pkgr.utils
 
-`Use_pkgr()` checks the OS that R is being used on and returns installation instructions for pkgr on the system. It also checks if the current release is installed on the system. If it is not then the user is asked if the steps listed should be executed to update to the current release.
+`Use_pkgr()` checks the OS that R is being used on and returns
+installation instructions for pkgr on the system. It also checks if the
+current release is installed on the system. If it is not then the user
+is asked if the steps listed should be executed to update to the current
+release.
 
 ``` r
 pkgr.utils::use_pkgr()
-#> Installing pkgr on a linux-gnu system
-#> ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-#> sudo wget https://github.com/metrumresearchgroup/pkgr/releases/download/v0.5.0/pkgr_0.5.0_linux_amd64.tar.gz -O /tmp/pkgr.tar.gz
-#> sudo tar xzf /tmp/pkgr.tar.gz pkgr
-#> sudo mv pkgr /usr/local/bin/pkgr
-#> sudo chmod +x /usr/local/bin/pkgr
+#> Installing pkgr on a darwin15.6.0 system
+#> ────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> brew tap metrumresearchgroup/homebrew-tap
+#> brew install metrumresearchgroup/tap/pkgr
 #>  
-#> ══ pkgr Version: 0.5.0 (Current Release) is Installed ══════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+#> ══ pkgr Version: 0.5.0-beta (Not Current Release) is Installed ═══════════════════════════════════════════════════════
 ```
 
 ### Command line builders
 
-> To run these outputs from within `R` pipe (`%>%`) them into a `system` call.
+> To run these outputs from within `R` pipe (`%>%`) them into a `system`
+> call.
 
 add/remove packages to `pkgr.yml`
 
@@ -71,11 +77,11 @@ pkgr.install()
 
 # with options
 pkgr.install(config='pkgr.yml',library=.libPaths()[1])
-#> [1] "pkgr install --config=pkgr.yml --library=/data/yonis/lib"
+#> [1] "pkgr install --config=pkgr.yml --library=/Library/Frameworks/R.framework/Versions/3.6/Resources/library"
 
 # using pkgr.here function
 pkgr.install(config=pkgr.here(),library=.libPaths()[1])
-#> [1] "pkgr install --config=/data/yonis/pkgr.utils/pkgr.yml --library=/data/yonis/lib"
+#> [1] "pkgr install --config=/Users/yonis/projects/pkgr.utils/pkgr.yml --library=/Library/Frameworks/R.framework/Versions/3.6/Resources/library"
 ```
 
 ### Initialize a yml from a template
@@ -85,16 +91,14 @@ pkgs%>%
   pkgr.utils::pkgr.new()
 #> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 1
+#> Threads: 7
 #> Packages: 
 #> - dplyr
 #> - ggplot2
 #> Repos: 
-#> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
-#> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
-#> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - rs_cran: https://cran.rstudio.com
-#> Library: '/data/yonis/lib'
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
 #>   all: pkgr-log.log
@@ -110,7 +114,7 @@ pkgr.utils::get_deps()%>%
   pkgr.utils::pkgr.new()
 #> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 1
+#> Threads: 7
 #> Packages: 
 #> - yaml
 #> - desc
@@ -123,11 +127,9 @@ pkgr.utils::get_deps()%>%
 #> - jsonlite
 #> - curl
 #> Repos: 
-#> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
-#> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
-#> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - rs_cran: https://cran.rstudio.com
-#> Library: '/data/yonis/lib'
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
 #>   all: pkgr-log.log
@@ -143,7 +145,7 @@ sinew_uri%>%
   pkgr.utils::pkgr.new()
 #> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 1
+#> Threads: 7
 #> Packages: 
 #> - rstudioapi
 #> - shiny
@@ -157,11 +159,9 @@ sinew_uri%>%
 #> - roxygen2
 #> - testthat
 #> Repos: 
-#> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
-#> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
-#> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - rs_cran: https://cran.rstudio.com
-#> Library: '/data/yonis/lib'
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
 #>   all: pkgr-log.log
@@ -179,14 +179,66 @@ system.file('pkgSetup.R',package = 'pkgr.utils')%>%
   )
 #> # Created using pkgr.utils template
 #> Version: 1
-#> Threads: 1
+#> Threads: 7
 #> Packages: 
+#> - anytime
+#> - batchmeans
+#> - bayesplot
+#> - bitops
+#> - broom
+#> - caTools
+#> - corrplot
+#> - corrr
+#> - data.table
+#> - devtools
+#> - DHARMa
+#> - digest
+#> - docxtractr
+#> - fork
+#> - formatR
+#> - GGally
+#> - ggcorrplot
+#> - ggrepel
+#> - glmnet
+#> - gridExtra
+#> - haven
+#> - Hmisc
+#> - htmltools
+#> - kableExtra
+#> - knitr
+#> - lubridate
+#> - magrittr
+#> - MCMCpack
+#> - mcmcse
+#> - metrumrg
+#> - mrggsave
+#> - mrgsolve
+#> - mrgtable
+#> - npde
+#> - ordinalNet
+#> - PKNCA
+#> - PKPDmisc
+#> - pmplots
+#> - png
+#> - qapply
+#> - remotes
+#> - reprex
+#> - reshape2
+#> - review
+#> - rlecuyer
+#> - rmarkdown
+#> - scales
+#> - tidynm
+#> - tidyverse
+#> - vpc
+#> - XML
+#> - xtable
+#> - yaml
+#> - yspec
 #> Repos: 
 #> - pkgsetup: pkg
-#> - gh_external: https://metrumresearchgroup.github.io/rpkgs/gh_external
-#> - gh_dev: https://metrumresearchgroup.github.io/rpkgs/gh_dev
-#> - mrg_val: https://metrumresearchgroup.github.io/r_validated
-#> - rs_cran: https://cran.rstudio.com
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
 #> Library: 'lib'
 #> Cache: pkgcache
 #> Logging:
@@ -206,7 +258,44 @@ pkgr.utils::get_deps(type = 'DESCRIPTION')%>%
     libpath = 'lib',
     out = tf
   )
+```
 
+<details closed>
+
+<summary> <span title="Click to Open"> Click to See pkgr.yml in the
+tempfile </span> </summary>
+
+``` yml
+
+# Created using pkgr.utils template
+Version: 1
+Threads: 7
+Packages: 
+- yaml
+- desc
+- httr
+- here
+- rstudioapi
+- glue
+- cli
+- magrittr
+- jsonlite
+- curl
+Repos: 
+- pkgsetup: pkg
+- MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
+- CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+Library: 'lib'
+Cache: pkgcache
+Logging:
+  all: pkgr-log.log
+```
+
+</details>
+
+<br>
+
+``` r
 pkgr.utils::pkgr.diff(
   src = system.file('pkgSetup.R',package = 'pkgr.utils'),
   pkgr = tf

@@ -12,6 +12,9 @@ knitr::opts_chunk$set(
   out.width = "100%",
   warning = FALSE
 )
+
+library(details)
+
 ```
 # pkgr.utils
 
@@ -130,7 +133,13 @@ pkgr.utils::get_deps(type = 'DESCRIPTION')%>%
     libpath = 'lib',
     out = tf
   )
+```
 
+```{details,echo=FALSE,details.summary = 'Click to See pkgr.yml in the tempfile',details.lang='yml'}
+tf
+```
+
+```{r}
 pkgr.utils::pkgr.diff(
   src = system.file('pkgSetup.R',package = 'pkgr.utils'),
   pkgr = tf

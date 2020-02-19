@@ -16,13 +16,13 @@ use_pkgr <- function(){
     cli::rule(),.sep = '\n')
 
   footer <- ' '
-  
+
   this_os <- os[sapply(os,grepl,x=R.version$os)]
-  
+
   body <-  switch(this_os,
          'darwin'  = {
            c('brew tap metrumresearchgroup/homebrew-tap',
-             'brew install pkgr')
+             'brew install metrumresearchgroup/tap/pkgr')
 
          },
          'linux' = {
@@ -38,7 +38,7 @@ use_pkgr <- function(){
     glue_this <- c(header,body,footer)
 
     on.exit(install_menu(body,this_os),add = TRUE)
-    
+
     print(glue::glue_collapse(glue_this,sep = '\n'))
 
 }
@@ -48,19 +48,19 @@ use_pkgr <- function(){
 current_release <- function(owner = 'metrumresearchgroup', repo = 'pkgr', os = c('linux','darwin','windows')){
 
   tf <- tempfile(fileext = '.json')
-  
+
   on.exit(unlink(tf),add = TRUE)
-  
+
   release_json <- curl::curl_download(glue::glue('https://api.github.com/repos/{owner}/{repo}/releases/latest'),destfile = tf,quiet = TRUE)
-  
+
   release_info <- jsonlite::read_json(release_json)
-  
+
   uris <- grep('gz$',sapply(release_info$assets,function(x) x$browser_download_url),value = TRUE)
-  
+
   names(uris) <- sapply(strsplit(gsub('_amd64.tar.gz$','',basename(uris)),'_'),'[[',3)
-  
+
   uris[os]
-  
+
 }
 
 #' @export
@@ -77,30 +77,30 @@ install_menu <- function(body,this_os){
   local_v <- pkgr.version()
 
   if(!identical(release_v,local_v)){
-  
+
   if(interactive()&this_os%in%c('linux','darwin')){
 
       print(glue::glue(cli::rule(left = cli::col_red('{local_v} is currently installed. Update to the {release_v}?'),line = 2)))
-      
+
       if(utils::menu(choices = c('Yes','No'))==1){
         system(paste(body,collapse =' ; '))
         local_v <- pkgr.version()
       }
-    
+
     }
-   
+
   }
-  
+
   print(version_message(local_v = local_v,release_v = release_v))
-  
+
 }
 
 #' @importFrom cli rule col_blue
 #' @importFrom glue glue
 version_message <- function(local_v = pkgr.version(), release_v = pkgr.current_release()){
-  
+
   flag <- ifelse(identical(release_v,local_v),"Current Release","Not Current Release")
-  
+
   glue::glue(cli::rule(left = cli::col_blue('pkgr Version: {local_v} ({flag}) is Installed'),line = 2))
-  
+
 }

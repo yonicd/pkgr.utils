@@ -2,7 +2,7 @@
 #' @description Returns names of stored CRAN and CRANlike repositories
 #' @param name character, Names of repositories to return,
 #'    Default: c("MPN", "CRAN")
-#' @param snapshot Date, date of the snapshot of the repository, Default: Sys.Date()
+#' @param snapshot Date, date of the snapshot of the repository, Default: Sys.Date() - 1
 #' @details
 #'
 #' Snapshot value is coerced into a Date class internally.
@@ -21,7 +21,7 @@
 #' @rdname get_repos
 #' @export
 #' @importFrom glue glue
-get_repos <- function(name = c('MPN','CRAN'), snapshot = Sys.Date()){
+get_repos <- function(name = c('MPN','CRAN'), snapshot = Sys.Date() - 1){
 
   min_date <- as.Date('2019-09-22')
 
@@ -33,7 +33,7 @@ get_repos <- function(name = c('MPN','CRAN'), snapshot = Sys.Date()){
   }
 
   repos <-   c(
-    MPN =  glue::glue('https://metrumresearchgroup.github.io/cran/{snapshot}'),
+    MPN =  glue::glue('https://mpn.metworx.com/snapshots/stable/{snapshot}'),
     CRAN = glue::glue('https://cran.microsoft.com/snapshot/{snapshot}')
     )
 

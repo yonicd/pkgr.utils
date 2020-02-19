@@ -4,13 +4,13 @@
 \alias{get_repos}
 \title{Stored Repositories}
 \usage{
-get_repos(name = c("MPN", "CRAN"), snapshot = Sys.Date())
+get_repos(name = c("MPN", "CRAN"), snapshot = Sys.Date() - 1)
 }
 \arguments{
 \item{name}{character, Names of repositories to return,
 Default: c("MPN", "CRAN")}
 
-\item{snapshot}{Date, date of the snapshot of the repository, Default: Sys.Date()}
+\item{snapshot}{Date, date of the snapshot of the repository, Default: Sys.Date() - 1}
 }
 \value{
 character
