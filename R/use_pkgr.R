@@ -63,10 +63,20 @@ current_release <- function(owner = 'metrumresearchgroup', repo = 'pkgr', os = c
 
 }
 
+
+#' @title FUNCTION_TITLE
+#' @description FUNCTION_DESCRIPTION
+#' @param os PARAM_DESCRIPTION, Default: 'linux'
+#' @return OUTPUT_DESCRIPTION
+#' @details DETAILS
+#' @examples
+#' \dontrun{
+#' if(interactive()){
+#'  #EXAMPLE1
+#'  }
+#' }
+#' @rdname pkgr.current_release
 #' @export
-#' @importFrom cli rule col_red
-#' @importFrom utils menu
-#' @importFrom glue glue
 pkgr.current_release <- function(os = "linux"){
   gsub('^v','',basename(dirname(current_release(os = os))))
 }

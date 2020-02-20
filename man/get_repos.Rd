@@ -4,13 +4,17 @@
 \alias{get_repos}
 \title{Stored Repositories}
 \usage{
-get_repos(name = c("MPN", "CRAN"), snapshot = Sys.Date() - 1)
+get_repos(
+  name = c("MPN", "CRAN"),
+  snapshot = c(MPN = mpn_release(latest = TRUE), CRAN = Sys.Date() - 1)
+)
 }
 \arguments{
 \item{name}{character, Names of repositories to return,
 Default: c("MPN", "CRAN")}
 
-\item{snapshot}{Date, date of the snapshot of the repository, Default: Sys.Date() - 1}
+\item{snapshot}{character, names vector corresponding to the repository of the dates to use for snapshots,
+Default: c(MPN = mpn_release(latest = FALSE), CRAN = Sys.Date() - 1)}
 }
 \value{
 character
@@ -25,10 +29,12 @@ The earliest date for 'MPN' is '2019-09-22', if snapshot is earlier than this an
 the user includes 'MPN' in name then snapshot will be replaced with '2019-09-22'.
 }
 \examples{
+
 get_repos()
 
 get_repos(name = 'MPN')
 
-get_repos(name = 'MPN', snapshot = Sys.Date() - 1)
+get_repos(name = 'CRAN', snapshot = c(CRAN = Sys.Date() - 1))
+
 
 }

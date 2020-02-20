@@ -3,6 +3,7 @@
 #' @param file PARAM_DESCRIPTION, Default: '.'
 #' @param pkgr_yml PARAM_DESCRIPTION
 #' @param test PARAM_DESCRIPTION, Default: TRUE
+#' @param \dots arguments to pass to get_deps
 #' @return OUTPUT_DESCRIPTION
 #' @details DETAILS
 #' @examples

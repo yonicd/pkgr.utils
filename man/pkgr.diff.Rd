@@ -10,6 +10,8 @@ pkgr.diff(src, pkgr = "pkgr.yml", ...)
 \item{src}{character, path to src file , Default: c('DESCRIPTION','pkgSetup')}
 
 \item{pkgr}{character, path to pkgr.yml, Default: 'pkgr.yml'}
+
+\item{\dots}{arguments to pass to get_deps}
 }
 \value{
 character

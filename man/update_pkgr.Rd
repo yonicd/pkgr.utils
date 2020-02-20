@@ -12,6 +12,8 @@ update_pkgr(file = ".", pkgr_yml, test = TRUE, ...)
 \item{pkgr_yml}{PARAM_DESCRIPTION}
 
 \item{test}{PARAM_DESCRIPTION, Default: TRUE}
+
+\item{\dots}{arguments to pass to get_deps}
 }
 \value{
 OUTPUT_DESCRIPTION

@@ -29,6 +29,7 @@ list2flag <- function(x){
 #' and return the setdiff.
 #' @param src character, path to src file , Default: c('DESCRIPTION','pkgSetup')
 #' @param pkgr character, path to pkgr.yml, Default: 'pkgr.yml'
+#' @param \dots arguments to pass to get_deps
 #' @return character
 #' @details The setdiff returns what packages are in src file
 #' that are missing from pkgr.yml Package field.

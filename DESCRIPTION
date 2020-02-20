@@ -1,10 +1,10 @@
 Package: pkgr.utils
 Type: Package
 Title: Utility Functions or pkgr
-Version: 0.1.9
+Version: 0.2.0
 Description: Utility functions to work with pkgr from with R.
 Depends: R (>= 3.2.0)
-Imports: yaml,desc,utils,httr,here,rstudioapi,parallel,glue,cli,magrittr,jsonlite,curl
+Imports: yaml,desc,utils,httr,here,rstudioapi,parallel,glue,cli,magrittr,jsonlite,curl,base64enc
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

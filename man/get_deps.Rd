@@ -9,8 +9,9 @@ get_deps(file = ".", type = c("DESCRIPTION", "pkgSetup"), ...)
 \arguments{
 \item{file}{PARAM_DESCRIPTION, Default: '.'}
 
-\item{excl_base}{logical, exclude the base and recommended packages shipped
-with R installation}
+\item{type}{character, type of file to parse, Default: c('DESCRIPTION','pkgSetup')}
+
+\item{\dots}{arguments to pass to desc_deps or pkgSetup_deps}
 }
 \value{
 character
@@ -22,10 +23,4 @@ dependencies.
 \details{
 For the vector of base and recommended packages use
 \link[pkgr.utils:base_packages]{base_packages}
-}
-\examples{
-desc_deps()
-}
-\seealso{
-\link[desc:desc_get_deps]{desc_get_deps}
 }
