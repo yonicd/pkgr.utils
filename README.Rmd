@@ -40,6 +40,12 @@ library(pkgr.utils)
 pkgr.utils::use_pkgr()
 ```
 
+### Query MPN Releases
+
+```{r}
+pkgr.utils::mpn_release()
+```
+
 
 ### Command line builders
 

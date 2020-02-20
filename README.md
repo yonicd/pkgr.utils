@@ -31,11 +31,23 @@ release.
 ``` r
 pkgr.utils::use_pkgr()
 #> Installing pkgr on a darwin15.6.0 system
-#> ────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> brew tap metrumresearchgroup/homebrew-tap
 #> brew install metrumresearchgroup/tap/pkgr
 #>  
-#> ══ pkgr Version: 0.5.0-beta (Not Current Release) is Installed ═══════════════════════════════════════════════════════
+#> ══ pkgr Version: 0.5.0-beta (Not Current Release) is Installed ════════════════════════════════════════════════════════════════════════════════════════════════════════
+```
+
+### Query MPN Releases
+
+``` r
+pkgr.utils::mpn_release()
+#> $latest
+#> [1] "2020-01-29"
+#> 
+#> $snapshots
+#> [1] "2020-01-29" "2020-01-11" "2019-12-15" "2019-12-02" "2019-11-09"
+#> [6] "2019-10-21" "2019-10-04"
 ```
 
 ### Command line builders
@@ -96,8 +108,8 @@ pkgs%>%
 #> - dplyr
 #> - ggplot2
 #> Repos: 
-#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
-#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-01-29
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-19
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -126,9 +138,10 @@ pkgr.utils::get_deps()%>%
 #> - magrittr
 #> - jsonlite
 #> - curl
+#> - base64enc
 #> Repos: 
-#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
-#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-01-29
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-19
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -159,8 +172,8 @@ sinew_uri%>%
 #> - roxygen2
 #> - testthat
 #> Repos: 
-#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
-#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-01-29
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-19
 #> Library: '/Library/Frameworks/R.framework/Versions/3.6/Resources/library'
 #> Cache: pkgcache
 #> Logging:
@@ -237,8 +250,8 @@ system.file('pkgSetup.R',package = 'pkgr.utils')%>%
 #> - yspec
 #> Repos: 
 #> - pkgsetup: pkg
-#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
-#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+#> - MPN: https://mpn.metworx.com/snapshots/stable/2020-01-29
+#> - CRAN: https://cran.microsoft.com/snapshot/2020-02-19
 #> Library: 'lib'
 #> Cache: pkgcache
 #> Logging:
@@ -281,10 +294,11 @@ Packages:
 - magrittr
 - jsonlite
 - curl
+- base64enc
 Repos: 
 - pkgsetup: pkg
-- MPN: https://mpn.metworx.com/snapshots/stable/2020-02-18
-- CRAN: https://cran.microsoft.com/snapshot/2020-02-18
+- MPN: https://mpn.metworx.com/snapshots/stable/2020-01-29
+- CRAN: https://cran.microsoft.com/snapshot/2020-02-19
 Library: 'lib'
 Cache: pkgcache
 Logging:

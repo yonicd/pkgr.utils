@@ -65,6 +65,9 @@ get_repos <- function(name = c('MPN', 'CRAN'), snapshot = c(MPN = mpn_release(la
 #' @importFrom jsonlite fromJSON
 #' @importFrom base64enc base64decode
 mpn_release <- function(latest = FALSE, pat = Sys.getenv('GHE_PAT')){
+  if(!nzchar(pat))
+    stop('Missing GHE Personal Access Token needed for the query')
+
   uri <- glue::glue("https://ghe.metrumrg.com/api/v3/repos/r-snapshots/snapshots/contents/stable/versions/all")
   res <- httr::GET(uri,
                    httr::add_headers(Authorization = glue::glue("token {pat}")),
