@@ -8,6 +8,6 @@ Imports: yaml,desc,utils,httr,here,rstudioapi,parallel,glue,cli,magrittr,jsonlit
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-Authors@R: person(given = "Jonathan", family = "Sidi", role = c("cre","aut"), email = "yonis@metrumrg.com")
+Authors@R: person(given = "Jonathan", family = "Sidi", role = c("cre","aut"), email = "yonicd@gmail.com")
 RoxygenNote: 7.0.2
 Roxygen: list(markdown = TRUE)
